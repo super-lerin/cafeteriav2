@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cardápio Interativo — Cafeteria O Abelhão 🐝</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/fraunces@5.0.0/index.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.0/index.css">
+<style>
+  :root {
+    --honey: #F5A623;
+    --honey-dark: #D88A0F;
+    --honey-light: #FFC857;
+    --cream: #FFF8E7;
+    --cream-dark: #F5EBD0;
+    --brown: #3D2817;
+    --brown-light: #6B4423;
+    --accent: #8B4513;
+  }
+  * { font-family: 'Inter', sans-serif; }
+  h1, h2, h3, .font-display { font-family: 'Fraunces', serif; }
+  body {
+    background: var(--cream);
+    color: var(--brown);
+    overflow-x: hidden;
+  }
+  .honey-gradient {
+    background: linear-gradient(135deg, #FFC857 0%, #F5A623 50%, #D88A0F 100%);
+  }
+  .honey-text {
+    background: linear-gradient(135deg, #F5A623, #D88A0F);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hexagon-bg {
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(245, 166, 35, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(245, 166, 35, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 40% 20%, rgba(245, 166, 35, 0.05) 0%, transparent 50%);
+  }
+  .card-item {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+  .card-item::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--honey-light), var(--honey), var(--honey-dark));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .card-item:hover::before { transform: scaleX(1); }
+  .card-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -10px rgba(245, 166, 35, 0.3);
+  }
+  .category-tab {
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  .category-tab.active {
+    background: var(--brown);
+    color: var(--cream);
+    transform: scale(1.05);
+  }
+  .category-tab:not(.active):hover {
+    background: rgba(245, 166, 35, 0.15);
+  }
+  .filter-chip {
+    transition: all 0.25s ease;
+    cursor: pointer;
+    user-select: none;
+  }
+  .filter-chip.active {
+    background: var(--honey);
+    color: var(--brown);
+    border-color: var(--honey-dark);
+    transform: scale(1.05);
+  }
+  .filter-chip:not(.active):hover {
+    background: rgba(245, 166, 35, 0.1);
+    border-color: var(--honey);
+  }
+  .bee-float {
+    animation: beeFloat 3s ease-in-out infinite;
+  }
+  @keyframes beeFloat {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-10px) rotate(5deg); }
+  }
+  .fade-in {
+    animation: fadeIn 0.5s ease forwards;
+    opacity: 0;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(20px); }
+  }
+  .search-glow:focus {
+    box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.2);
+  }
+  .favorite-btn {
+    transition: all 0.3s ease;
+  }
+  .favorite-btn.active svg {
+    fill: #E74C3C;
+    stroke: #E74C3C;
+    transform: scale(1.2);
+  }
+  .favorite-btn:hover svg { transform: scale(1.15); }
+  .modal-backdrop {
+    backdrop-filter: blur(8px);
+    background: rgba(61, 40, 23, 0.6);
+  }
+  .tag-special {
+    background: linear-gradient(135deg, #FFC857, #F5A623);
+    color: var(--brown);
+    font-weight: 600;
+  }
+  .tag-veg { background: #A8D5BA; color: #2D5F3F; }
+  .tag-hot { background: #FFB4A2; color: #8B2500; }
+  .tag-cold { background: #B8D4E3; color: #1E4D6B; }
+  .tag-sweet { background: #F4C2C2; color: #8B2252; }
+  .tag-savory { background: #E8D5B7; color: #6B4423; }
+  .surprise-btn {
+    background: linear-gradient(135deg, #F5A623, #D88A0F);
+    box-shadow: 0 4px 15px rgba(245, 166, 35, 0.4);
+    transition: all 0.3s ease;
+  }
+  .surprise-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(245, 166, 35, 0.5);
+  }
+  .scroll-smooth { scroll-behavior: smooth; }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--cream-dark); }
+  ::-webkit-scrollbar-thumb { background: var(--honey); border-radius: 5px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--honey-dark); }
+  .no-results {
+    animation: wobble 0.6s ease;
+  }
+  @keyframes wobble {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    75% { transform: translateX(10px); }
+  }
+  .honeycomb-pattern {
+    background-color: var(--cream);
+    background-image: 
+      radial-gradient(circle at 100% 150%, var(--cream) 24%, var(--honey-light) 25%, var(--honey-light) 28%, var(--cream) 29%, var(--cream) 76%, var(--honey-light) 77%, var(--honey-light) 82%, var(--cream) 83%, var(--cream)),
+      radial-gradient(circle at 0 150%, var(--cream) 24%, var(--honey-light) 25%, var(--honey-light) 28%, var(--cream) 29%, var(--cream) 76%, var(--honey-light) 77%, var(--honey-light) 82%, var(--cream) 83%, var(--cream)),
+      radial-gradient(circle at 50% 100%, var(--cream-dark) 10%, var(--cream) 11%);
+    background-size: 40px 70px;
+    opacity: 0.3;
+  }
+  .pulse-dot {
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  .item-enter {
+    animation: itemEnter 0.4s ease forwards;
+  }
+  @keyframes itemEnter {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- HEADER -->
+<header class="sticky top-0 z-40 bg-cream/90 backdrop-blur-md border-b-2 border-honey/30 shadow-sm">
+  <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="text-4xl bee-float">🐝</div>
+      <div>
+        <h1 class="font-display text-xl md:text-2xl font-bold honey-text leading-none">O Abelhão</h1>
+        <p class="text-xs text-brown-light">Cardápio Interativo</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2">
+      <button id="favToggle" class="relative p-2 rounded-full hover:bg-honey/20 transition" title="Favoritos">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+        <span id="favCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold hidden">0</span>
+      </button>
+      <button id="surpriseBtn" class="surprise-btn text-white font-semibold px-4 py-2 rounded-full text-sm flex items-center gap-2">
+        <span>✨</span><span class="hidden sm:inline">Surpreenda-me</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="relative overflow-hidden">
+  <div class="absolute inset-0 honeycomb-pattern"></div>
+  <div class="relative max-w-7xl mx-auto px-4 py-10 md:py-16 text-center">
+    <div class="inline-block mb-4 px-4 py-1 bg-honey/20 border border-honey rounded-full text-sm font-medium text-brown-light">
+      <span class="pulse-dot inline-block w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+      Aberto agora · Fecha às 18:00
+    </div>
+    <h2 class="font-display text-4xl md:text-6xl font-bold mb-4 honey-text">Sabores que contam histórias</h2>
+    <p class="text-lg md:text-xl text-brown-light max-w-2xl mx-auto mb-8">
+      Explore nosso cardápio artesanal. Busque, filtre e descubra combinações únicas preparadas com carinho na serra fluminense.
+    </p>
+
+    <!-- SEARCH -->
+    <div class="max-w-2xl mx-auto relative">
+      <div class="relative">
+        <svg class="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-brown-light" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        <input id="searchInput" type="text" placeholder="Busque por nome, ingrediente ou descrição..." 
+          class="w-full pl-14 pr-12 py-4 rounded-full bg-white border-2 border-honey/40 search-glow focus:border-honey focus:outline-none text-brown text-lg shadow-lg" />
+        <button id="clearSearch" class="absolute right-4 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-honey/20 hover:bg-honey/40 text-brown flex items-center justify-center hidden">
+          ✕
+        </button>
+      </div>
+      <div id="searchSuggestions" class="mt-2 text-sm text-brown-light">
+        <span class="opacity-70">Experimente:</span>
+        <button class="suggestion-btn mx-1 px-2 py-0.5 bg-white rounded-full hover:bg-honey/30 border border-honey/30">milho</button>
+        <button class="suggestion-btn mx-1 px-2 py-0.5 bg-white rounded-full hover:bg-honey/30 border border-honey/30">canastra</button>
+        <button class="suggestion-btn mx-1 px-2 py-0.5 bg-white rounded-full hover:bg-honey/30 border border-honey/30">defumado</button>
+        <button class="suggestion-btn mx-1 px-2 py-0.5 bg-white rounded-full hover:bg-honey/30 border border-honey/30">doce</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SMART FILTERS -->
+<section class="max-w-7xl mx-auto px-4 mb-6">
+  <div class="bg-white rounded-2xl p-4 shadow-md border border-honey/20">
+    <div class="flex items-center gap-2 mb-3">
+      <svg class="w-5 h-5 text-honey-dark" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd"/></svg>
+      <h3 class="font-semibold text-brown">Filtros Inteligentes</h3>
+      <span id="activeFiltersCount" class="ml-auto text-xs bg-honey text-brown px-2 py-0.5 rounded-full font-bold hidden">0 ativos</span>
+    </div>
+    <div class="flex flex-wrap gap-2" id="filterContainer">
+      <button class="filter-chip px-4 py-2 rounded-full border-2 border-honey/40 text-sm font-medium" data-filter="all">🍽️ Todos</button>
+      <button class="filter-chip px-4 py-2 rounded-full border-2 border-honey/40 text-sm font-medium" data-filter="sweet">🍯 Doces</button>
+      <button class="filter-chip px-4 py-2 rounded-full border-2 border-honey/40 text-sm font-medium" data-filter="savory">🧀 Salgados</button>
+      <button class="filter-chip px-4 py-2 rounded-full border-2 border-honey/40 text-sm font-medium" data-filter="hot">☕ Quentes</button>
+      <button class="filter-chip px-4 py-2 rounded-full border-2 border-honey/40 text-sm font-medium" data-filter="cold">🧊 Frios</button>
+      <button class="filter-chip px-4 py-2 rounded-full border-2 border-honey/40 text-sm font-medium" data-filter="artisanal">✨ Artesanais</button>
+      <button class="filter-chip px-4 py-2 rounded-full border-2 border-honey/40 text-sm font-medium" data-filter="signature">⭐ Especiais</button>
+      <button class="filter-chip px-4 py-2 rounded-full border-2 border-honey/40 text-sm font-medium" data-filter="quick">⚡ Rápidos</button>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="max-w-7xl mx-auto px-4 mb-6">
+  <div class="flex gap-2 overflow-x-auto pb-2" id="categoryTabs">
+    <button class="category-tab active px-5 py-3 rounded-xl font-semibold whitespace-nowrap border-2 border-transparent" data-category="all">
+      <span class="mr-1">📋</span> Tudo <span class="ml-1 text-xs opacity-70" id="count-all"></span>
+    </button>
+    <button class="category-tab px-5 py-3 rounded-xl font-semibold whitespace-nowrap border-2 border-transparent" data-category="cafe">
+      <span class="mr-1">☕</span> Café <span class="ml-1 text-xs opacity-70" id="count-cafe"></span>
+    </button>
+    <button class="category-tab px-5 py-3 rounded-xl font-semibold whitespace-nowrap border-2 border-transparent" data-category="bolos">
+      <span class="mr-1">🍰</span> Bolos <span class="ml-1 text-xs opacity-70" id="count-bolos"></span>
+    </button>
+    <button class="category-tab px-5 py-3 rounded-xl font-semibold whitespace-nowrap border-2 border-transparent" data-category="sanduiches">
+      <span class="mr-1">🥪</span> Sanduíches <span class="ml-1 text-xs opacity-70" id="count-sanduiches"></span>
+    </button>
+    <button class="category-tab px-5 py-3 rounded-xl font-semibold whitespace-nowrap border-2 border-transparent" data-category="bebidas">
+      <span class="mr-1">🥤</span> Bebidas <span class="ml-1 text-xs opacity-70" id="count-bebidas"></span>
+    </button>
+  </div>
+</section>
+
+<!-- ITEMS GRID -->
+<section class="max-w-7xl mx-auto px-4 pb-12">
+  <div id="itemsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+    <!-- Items injected by JS -->
+  </div>
+  <div id="noResults" class="hidden text-center py-16 no-results">
+    <div class="text-6xl mb-4">🔍</div>
+    <h3 class="font-display text-2xl font-bold mb-2 honey-text">Nada por aqui...</h3>
+    <p class="text-brown-light">Tente outra busca ou limpe os filtros.</p>
+    <button id="resetAll" class="mt-4 px-6 py-2 bg-honey text-brown font-semibold rounded-full hover:bg-honey-dark transition">Limpar tudo</button>
+  </div>
+</section>
+
+<!-- MODAL -->
+<div id="modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 modal-backdrop">
+  <div class="bg-cream rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl border-4 border-honey">
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- FAVORITES PANEL -->
+<div id="favPanel" class="fixed top-0 right-0 h-full w-80 max-w-full bg-cream z-50 shadow-2xl transform translate-x-full transition-transform duration-300 border-l-4 border-honey overflow-y-auto">
+  <div class="p-5 border-b-2 border-honey/30 flex items-center justify-between sticky top-0 bg-cream z-10">
+    <h3 class="font-display text-xl font-bold honey-text">❤️ Meus Favoritos</h3>
+    <button id="closeFav" class="w-8 h-8 rounded-full bg-honey/20 hover:bg-honey/40 flex items-center justify-center">✕</button>
+  </div>
+  <div id="favList" class="p-5"></div>
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-brown text-cream py-8 mt-12">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <div class="text-4xl mb-2">🐝</div>
+    <p class="font-display text-lg mb-1">Cafeteria O Abelhão</p>
+    <p class="text-sm opacity-70">RJ-116, Nova Friburgo - RJ · Seg-Sex: 8h-17h · Sáb-Dom: até 18h</p>
+    <p class="text-xs opacity-50 mt-4">Feito com amor e mel na serra fluminense · 2026</p>
+  </div>
+</footer>
+
+<script>
+// ============ DATA ============
+const menuData = [
+  // CAFÉ
+  { id: 1, name: "Café da Roça Ritual", category: "cafe", description: "Linguiça, queijo, broa e licor. Uma experiência completa da roça em um só prato.", tags: ["signature", "artisanal", "savory", "hot"], emoji: "☕", special: true },
+  { id: 2, name: "Cafezinho Tradicional", category: "cafe", description: "O clássico cafezinho coado na hora, forte e aromático.", tags: ["hot", "quick"], emoji: "☕" },
+  { id: 3, name: "Café de Milho", category: "cafe", description: "Bebida tradicional feita com milho torrado, sem cafeína.", tags: ["hot", "artisanal"], emoji: "🌽" },
+  { id: 4, name: "Café de Milho com Canela", category: "cafe", description: "Versão aromática do café de milho com toque de canela.", tags: ["hot", "artisanal"], emoji: "🌽" },
+  { id: 5, name: "Café com Leite", category: "cafe", description: "Combinação clássica e reconfortante de café e leite.", tags: ["hot", "quick"], emoji: "☕" },
+  { id: 6, name: "Cappuccino", category: "cafe", description: "Café expresso com leite vaporizado e espuma cremosa.", tags: ["hot", "quick"], emoji: "☕" },
+  { id: 7, name: "Chocolate Quente", category: "cafe", description: "Chocolate cremoso e aquecedor, perfeito para dias frios da serra.", tags: ["hot", "sweet", "quick"], emoji: "🍫" },
+  { id: 8, name: "Chá", category: "cafe", description: "Diversos sabores de chá para aquecer o corpo e a alma.", tags: ["hot", "quick"], emoji: "🍵" },
+  { id: 9, name: "Pão com Manteiga", category: "cafe", description: "Pão fresquinho com manteiga de qualidade.", tags: ["quick", "savory"], emoji: "🍞" },
+  { id: 10, name: "Pão de Queijo", category: "cafe", description: "Quentinho, crocante por fora e macio por dentro.", tags: ["hot", "quick", "savory"], emoji: "🧀" },
+  { id: 11, name: "Café Expresso", category: "cafe", description: "Café concentrado e encorpado, extraído na hora.", tags: ["hot", "quick"], emoji: "☕" },
+
+  // BOLOS
+  { id: 12, name: "Mini Broa de Fubá", category: "bolos", description: "Broa tradicional de fubá, fofinha e aromática.", tags: ["sweet", "artisanal"], emoji: "🍞" },
+  { id: 13, name: "Broa de Milho", category: "bolos", description: "Broa de milho feita com receita caseira da casa.", tags: ["sweet", "artisanal"], emoji: "🌽" },
+  { id: 14, name: "Bolo de Cenoura", category: "bolos", description: "Clássico bolo de cenoura com cobertura de chocolate.", tags: ["sweet"], emoji: "🥕" },
+  { id: 15, name: "Bolo de Leite Ninho com Cobertura", category: "bolos", description: "Bolo macio de leite ninho com cobertura generosa.", tags: ["sweet", "signature"], emoji: "🎂", special: true },
+  { id: 16, name: "Bolo de Laranja", category: "bolos", description: "Bolo úmido de laranja com sabor cítrico natural.", tags: ["sweet"], emoji: "🍊" },
+  { id: 17, name: "Bolo de Amendoim com Paçoca", category: "bolos", description: "Combinação irresistível de amendoim e paçoca.", tags: ["sweet", "artisanal"], emoji: "🥜" },
+  { id: 18, name: "Apple Strudel de Banana", category: "bolos", description: "Strudel artesanal de banana — 100g. Servido com bola de sorvete.", tags: ["sweet", "signature", "artisanal"], emoji: "🍌", special: true },
+  { id: 19, name: "Apple Strudel de Maçã Diet", category: "bolos", description: "Versão diet do tradicional strudel de maçã — 100g.", tags: ["sweet", "artisanal"], emoji: "🍎" },
+  { id: 20, name: "Torta Doce", category: "bolos", description: "Torta doce da casa, receita especial.", tags: ["sweet"], emoji: "🥧" },
+
+  // SANDUÍCHES
+  { id: 21, name: "Lombinho de Porco Defumado", category: "sanduiches", description: "Baguete com mostarda de jabuticaba e queijo tipo Canastra temperado.", tags: ["savory", "signature", "artisanal"], emoji: "🥪", special: true },
+  { id: 22, name: "Abelhão 🐝", category: "sanduiches", description: "Baguete, queijo tipo Canastra e mel de laranja. A cara da casa!", tags: ["savory", "signature", "artisanal", "sweet"], emoji: "🐝", special: true },
+  { id: 23, name: "Linguiça Defumada", category: "sanduiches", description: "Baguete com molho caseiro e queijo temperado tipo Canastra.", tags: ["savory", "artisanal"], emoji: "🥪" },
+  { id: 24, name: "Trita Defumada", category: "sanduiches", description: "Baguete com mostarda de alho e azeitona.", tags: ["savory", "artisanal"], emoji: "🥪" },
+  { id: 25, name: "Italiano", category: "sanduiches", description: "Baguete com queijo tipo Canastra e pasta de tomate seco.", tags: ["savory", "artisanal"], emoji: "🇮🇹" },
+  { id: 26, name: "Salgado de Forno", category: "sanduiches", description: "Frango com queijo, bacalhau, ricota com espinafre, palmito e queijo com presunto.", tags: ["savory"], emoji: "🥟" },
+  { id: 27, name: "Empadinha", category: "sanduiches", description: "Empadinha crocante — recheios de bacalhau ou frango catupiry.", tags: ["savory", "quick"], emoji: "🥧" },
+  { id: 28, name: "Empadão de Frango", category: "sanduiches", description: "Empadão generoso de frango, perfeito para dividir.", tags: ["savory"], emoji: "🥧" },
+  { id: 29, name: "Hambúrguer de Forno", category: "sanduiches", description: "Hambúrguer artesanal assado no forno.", tags: ["savory"], emoji: "🍔" },
+  { id: 30, name: "X-Frango", category: "sanduiches", description: "Sanduíche de frango suculento.", tags: ["savory", "quick"], emoji: "🍔" },
+  { id: 31, name: "Forno Misto", category: "sanduiches", description: "Clássico misto quente preparado no forno.", tags: ["savory", "hot", "quick"], emoji: "🥪" },
+  { id: 32, name: "Queijo Quente", category: "sanduiches", description: "Pão com queijo derretido, simples e delicioso.", tags: ["savory", "hot", "quick"], emoji: "🧀" },
+  { id: 33, name: "Pão com Ovo e Queijo", category: "sanduiches", description: "Combinação simples e reconfortante.", tags: ["savory", "quick"], emoji: "🍳" },
+
+  // BEBIDAS
+  { id: 34, name: "Energético", category: "bebidas", description: "Bebida energética para recarregar as energias.", tags: ["cold", "quick"], emoji: "⚡" },
+  { id: 35, name: "Suco de Valle", category: "bebidas", description: "Sucos naturais em diversos sabores.", tags: ["cold", "quick"], emoji: "🧃" },
+  { id: 36, name: "Suco de Laranja", category: "bebidas", description: "Suco de laranja natural, fresco e vitamínico.", tags: ["cold", "quick"], emoji: "🍊" },
+  { id: 37, name: "Água com Gás", category: "bebidas", description: "Água mineral com gás, gelada.", tags: ["cold", "quick"], emoji: "💧" },
+  { id: 38, name: "Água sem Gás", category: "bebidas", description: "Água mineral natural.", tags: ["cold", "quick"], emoji: "💧" },
+  { id: 39, name: "Guaraviton", category: "bebidas", description: "Bebida energética à base de guaraná.", tags: ["cold", "quick"], emoji: "⚡" },
+  { id: 40, name: "Guaraná Lata", category: "bebidas", description: "Refrigerante de guaraná gelado.", tags: ["cold", "sweet", "quick"], emoji: "🥤" },
+  { id: 41, name: "Coca-Cola Lata", category: "bebidas", description: "Coca-Cola em lata, gelada.", tags: ["cold", "sweet", "quick"], emoji: "🥤" },
+  { id: 42, name: "Guaravita", category: "bebidas", description: "Refrigerante natural de guaraná.", tags: ["cold", "quick"], emoji: "🥤" },
+  { id: 43, name: "Mate", category: "bebidas", description: "Mate gelado, refrescante e tradicional.", tags: ["cold", "quick"], emoji: "🧉" }
+];
+
+// ============ STATE ============
+let state = {
+  search: '',
+  category: 'all',
+  filters: new Set(),
+  favorites: JSON.parse(localStorage.getItem('abelhao_favs') || '[]')
+};
+
+// ============ DOM ============
+const grid = document.getElementById('itemsGrid');
+const noResults = document.getElementById('noResults');
+const searchInput = document.getElementById('searchInput');
+const clearSearch = document.getElementById('clearSearch');
+const favCount = document.getElementById('favCount');
+const favPanel = document.getElementById('favPanel');
+const favList = document.getElementById('favList');
+const modal = document.getElementById('modal');
+const modalContent = document.getElementById('modalContent');
+const activeFiltersCount = document.getElementById('activeFiltersCount');
+
+// ============ UTILS ============
+function normalize(str) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
+function getTagLabel(tag) {
+  const labels = {
+    sweet: '🍯 Doce', savory: '🧀 Salgado', hot: '☕ Quente', cold: '🧊 Frio',
+    artisanal: '✨ Artesanal', signature: '⭐ Especial', quick: '⚡ Rápido'
+  };
+  return labels[tag] || tag;
+}
+
+function getTagClass(tag) {
+  const classes = {
+    sweet: 'tag-sweet', savory: 'tag-savory', hot: 'tag-hot', cold: 'tag-cold',
+    artisanal: 'tag-special', signature: 'tag-special', quick: 'tag-savory'
+  };
+  return classes[tag] || '';
+}
+
+// ============ RENDER ============
+function render() {
+  let items = menuData.filter(item => {
+    // category
+    if (state.category !== 'all' && item.category !== state.category) return false;
+    // filters
+    if (state.filters.size > 0) {
+      const hasFilter = [...state.filters].some(f => item.tags.includes(f));
+      if (!hasFilter) return false;
+    }
+    // search
+    if (state.search) {
+      const q = normalize(state.search);
+      const haystack = normalize(item.name + ' ' + item.description + ' ' + item.tags.join(' '));
+      if (!haystack.includes(q)) return false;
+    }
+    return true;
+  });
+
+  // Update counts
+  document.getElementById('count-all').textContent = `(${menuData.length})`;
+  ['cafe', 'bolos', 'sanduiches', 'bebidas'].forEach(cat => {
+    const count = menuData.filter(i => i.category === cat).length;
+    document.getElementById(`count-${cat}`).textContent = `(${count})`;
+  });
+
+  // Favorites count
+  if (state.favorites.length > 0) {
+    favCount.textContent = state.favorites.length;
+    favCount.classList.remove('hidden');
+  } else {
+    favCount.classList.add('hidden');
+  }
+
+  // Active filters indicator
+  if (state.filters.size > 0) {
+    activeFiltersCount.textContent = `${state.filters.size} ativo${state.filters.size > 1 ? 's' : ''}`;
+    activeFiltersCount.classList.remove('hidden');
+  } else {
+    activeFiltersCount.classList.add('hidden');
+  }
+
+  // Clear search button
+  if (state.search) clearSearch.classList.remove('hidden');
+  else clearSearch.classList.add('hidden');
+
+  // Render items
+  if (items.length === 0) {
+    grid.classList.add('hidden');
+    noResults.classList.remove('hidden');
+    return;
+  }
+  grid.classList.remove('hidden');
+  noResults.classList.add('hidden');
+
+  grid.innerHTML = items.map((item, idx) => {
+    const isFav = state.favorites.includes(item.id);
+    return `
+      <div class="card-item bg-white rounded-2xl p-5 shadow-md border border-honey/10 cursor-pointer item-enter" 
+           style="animation-delay: ${idx * 30}ms"
+           onclick="openModal(${item.id})">
+        <div class="flex items-start justify-between mb-3">
+          <div class="text-4xl">${item.emoji}</div>
+          <div class="flex items-center gap-1">
+            ${item.special ? '<span class="tag-special text-xs px-2 py-0.5 rounded-full">⭐ Especial</span>' : ''}
+            <button class="favorite-btn ${isFav ? 'active' : ''} p-1" onclick="event.stopPropagation(); toggleFav(${item.id})">
+              <svg class="w-5 h-5" fill="${isFav ? '#E74C3C' : 'none'}" stroke="${isFav ? '#E74C3C' : 'currentColor'}" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+            </button>
+          </div>
+        </div>
+        <h3 class="font-display text-lg font-bold mb-2 text-brown leading-tight">${item.name}</h3>
+        <p class="text-sm text-brown-light mb-3 line-clamp-2" style="display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${item.description}</p>
+        <div class="flex flex-wrap gap-1">
+          ${item.tags.slice(0, 3).map(t => `<span class="text-xs px-2 py-0.5 rounded-full ${getTagClass(t)}">${getTagLabel(t)}</span>`).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderFavorites() {
+  const favItems = menuData.filter(i => state.favorites.includes(i.id));
+  if (favItems.length === 0) {
+    favList.innerHTML = `
+      <div class="text-center py-10">
+        <div class="text-5xl mb-3">💛</div>
+        <p class="text-brown-light">Você ainda não adicionou favoritos.</p>
+        <p class="text-xs text-brown-light mt-2">Clique no ❤️ dos itens para salvá-los aqui.</p>
+      </div>
+    `;
+    return;
+  }
+  favList.innerHTML = favItems.map(item => `
+    <div class="flex items-center gap-3 p-3 bg-white rounded-xl mb-2 border border-honey/20 hover:border-honey transition">
+      <div class="text-2xl">${item.emoji}</div>
+      <div class="flex-1 min-w-0">
+        <p class="font-semibold text-sm truncate">${item.name}</p>
+        <p class="text-xs text-brown-light capitalize">${item.category}</p>
+      </div>
+      <button onclick="toggleFav(${item.id}); renderFavorites()" class="text-red-500 hover:bg-red-50 p-1 rounded">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+      </button>
+    </div>
+  `).join('');
+}
+
+// ============ ACTIONS ============
+function toggleFav(id) {
+  const idx = state.favorites.indexOf(id);
+  if (idx > -1) state.favorites.splice(idx, 1);
+  else state.favorites.push(id);
+  localStorage.setItem('abelhao_favs', JSON.stringify(state.favorites));
+  render();
+  renderFavorites();
+}
+
+function openModal(id) {
+  const item = menuData.find(i => i.id === id);
+  if (!item) return;
+  const isFav = state.favorites.includes(item.id);
+  const categoryNames = { cafe: 'Café', bolos: 'Bolos — Fatia', sanduiches: 'Sanduíches', bebidas: 'Bebidas' };
+  
+  // Suggest pairings
+  const pairings = menuData.filter(i => i.id !== item.id && i.category !== item.category && i.tags.some(t => item.tags.includes(t))).slice(0, 3);
+
+  modalContent.innerHTML = `
+    <div class="relative">
+      <div class="honey-gradient h-32 flex items-center justify-center text-7xl">
+        ${item.emoji}
+      </div>
+      <button onclick="closeModal()" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-white/90 hover:bg-white flex items-center justify-center text-brown font-bold shadow">✕</button>
+      ${item.special ? '<span class="absolute top-3 left-3 tag-special text-xs px-3 py-1 rounded-full shadow">⭐ Item Especial</span>' : ''}
+    </div>
+    <div class="p-6">
+      <p class="text-xs text-brown-light uppercase tracking-wide mb-1">${categoryNames[item.category]}</p>
+      <h2 class="font-display text-2xl font-bold mb-3 text-brown">${item.name}</h2>
+      <p class="text-brown-light mb-4 leading-relaxed">${item.description}</p>
+      
+      <div class="flex flex-wrap gap-2 mb-5">
+        ${item.tags.map(t => `<span class="text-xs px-3 py-1 rounded-full ${getTagClass(t)} font-medium">${getTagLabel(t)}</span>`).join('')}
+      </div>
+
+      <div class="flex gap-2 mb-5">
+        <button onclick="toggleFav(${item.id}); openModal(${item.id})" class="flex-1 py-3 rounded-xl border-2 ${isFav ? 'bg-red-50 border-red-300 text-red-600' : 'border-honey text-brown hover:bg-honey/10'} font-semibold transition">
+          ${isFav ? '❤️ Remover dos Favoritos' : '🤍 Adicionar aos Favoritos'}
+        </button>
+      </div>
+
+      ${pairings.length > 0 ? `
+        <div class="border-t-2 border-honey/20 pt-4">
+          <p class="text-sm font-semibold mb-2 text-brown">🐝 Combina bem com:</p>
+          <div class="space-y-2">
+            ${pairings.map(p => `
+              <button onclick="openModal(${p.id})" class="w-full flex items-center gap-3 p-2 bg-cream-dark rounded-lg hover:bg-honey/20 transition text-left">
+                <span class="text-2xl">${p.emoji}</span>
+                <div class="flex-1">
+                  <p class="text-sm font-semibold">${p.name}</p>
+                  <p class="text-xs text-brown-light capitalize">${p.category}</p>
+                </div>
+                <span class="text-brown-light">→</span>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      ` : ''}
+    </div>
+  `;
+  modal.classList.remove('hidden');
+  modal.classList.add('flex');
+}
+
+function closeModal() {
+  modal.classList.add('hidden');
+  modal.classList.remove('flex');
+}
+
+function surprise() {
+  const pool = menuData.filter(i => i.special || i.tags.includes('signature') || i.tags.includes('artisanal'));
+  const pick = pool[Math.floor(Math.random() * pool.length)] || menuData[Math.floor(Math.random() * menuData.length)];
+  openModal(pick.id);
+}
+
+function resetAll() {
+  state.search = '';
+  state.category = 'all';
+  state.filters.clear();
+  searchInput.value = '';
+  document.querySelectorAll('.category-tab').forEach(t => t.classList.toggle('active', t.dataset.category === 'all'));
+  document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+  document.querySelector('.filter-chip[data-filter="all"]').classList.add('active');
+  render();
+}
+
+// ============ EVENTS ============
+searchInput.addEventListener('input', (e) => {
+  state.search = e.target.value;
+  render();
+});
+
+clearSearch.addEventListener('click', () => {
+  searchInput.value = '';
+  state.search = '';
+  render();
+  searchInput.focus();
+});
+
+document.querySelectorAll('.suggestion-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    searchInput.value = btn.textContent;
+    state.search = btn.textContent;
+    render();
+    searchInput.focus();
+  });
+});
+
+document.querySelectorAll('.category-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    state.category = tab.dataset.category;
+    render();
+  });
+});
+
+document.querySelectorAll('.filter-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    const filter = chip.dataset.filter;
+    if (filter === 'all') {
+      state.filters.clear();
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+    } else {
+      document.querySelector('.filter-chip[data-filter="all"]').classList.remove('active');
+      if (state.filters.has(filter)) {
+        state.filters.delete(filter);
+        chip.classList.remove('active');
+      } else {
+        state.filters.add(filter);
+        chip.classList.add('active');
+      }
+      if (state.filters.size === 0) {
+        document.querySelector('.filter-chip[data-filter="all"]').classList.add('active');
+      }
+    }
+    render();
+  });
+});
+
+// default active
+document.querySelector('.filter-chip[data-filter="all"]').classList.add('active');
+
+document.getElementById('surpriseBtn').addEventListener('click', surprise);
+document.getElementById('favToggle').addEventListener('click', () => {
+  favPanel.classList.toggle('translate-x-full');
+  renderFavorites();
+});
+document.getElementById('closeFav').addEventListener('click', () => {
+  favPanel.classList.add('translate-x-full');
+});
+document.getElementById('resetAll').addEventListener('click', resetAll);
+
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) closeModal();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeModal();
+    favPanel.classList.add('translate-x-full');
+  }
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+    e.preventDefault();
+    searchInput.focus();
+  }
+});
+
+// ============ INIT ============
+render();
+</script>
+</body>
+</html>

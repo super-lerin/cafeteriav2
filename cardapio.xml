@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cardapio versao="2.0" cafeteria="O Abelhão" atualizacao="2026-09-21">
+
+  <!-- ============================================================ -->
+  <!-- METADADOS DA CAFETERIA                                        -->
+  <!-- ============================================================ -->
+  <metadata>
+    <nome>Cafeteria O Abelhão</nome>
+    <tipo>Cafeteria &amp; Delicatessen Artesanal</tipo>
+    <localizacao>
+      <endereco>RJ-116, Nova Friburgo - RJ</endpoint>
+      <coordenadas lat="-22.3699374" lng="-42.5414703"/>
+      <regiao>Serra Fluminense - Rio de Janeiro</regiao>
+    </localizacao>
+    <funcionamento>
+      <dia periodo="segunda-sexta" abertura="08:00" fechamento="17:00"/>
+      <dia periodo="sabado-domingo" abertura="08:00" fechamento="18:00"/>
+    </funcionamento>
+    <faixaPreco minimo="20" maximo="40" moeda="BRL"/>
+    <avaliacao>
+      <nota>4.5</nota>
+      <totalAvaliacoes>248</totalAvaliacoes>
+      <plataforma>Google</plataforma>
+    </avaliacao>
+    <contato>
+      <instagram>@cafeteria_o_abelhao</instagram>
+      <site>https://www.instagram.com/cafeteria_o_abelhao/</site>
+    </contato>
+    <publicoAlvo>ciclistas, viajantes, amantes de boa comida</publicoAlvo>
+    <destaque>degustações de geleias artesanais, chutneys, queijos, mostardas e bolos caseiros</destaque>
+  </metadata>
+
+  <!-- ============================================================ -->
+  <!-- CATEGORIAS E ITENS DO CARDÁPIO                                -->
+  <!-- ============================================================ -->
+  <categorias>
+
+    <!-- ==================== CAFÉ ==================== -->
+    <categoria id="cafe" nome="Café" icone="☕" ordem="1" descricao="Bebidas quentes e clássicos da casa">
+      <totalItens>11</totalItens>
+
+      <item id="1" nome="Café da Roça Ritual" destaque="true">
+        <descricao>Linguiça, queijo, broa e licor. Uma experiência completa da roça em um só prato.</descricao>
+        <tags>
+          <tag tipo="perfil">signature</tag>
+          <tag tipo="perfil">artisanal</tag>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="temperatura">hot</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">linguiça</ingrediente>
+          <ingrediente>queijo</ingrediente>
+          <ingrediente>broa</ingrediente>
+          <ingrediente>licor</ingrediente>
+        </ingredientes>
+        <ocasiao>cafe-da-manha, experiencia</ocasiao>
+      </item>
+
+      <item id="2" nome="Cafezinho Tradicional">
+        <descricao>O clássico cafezinho coado na hora, forte e aromático.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="temperatura">hot</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">café coado</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="3" nome="Café de Milho">
+        <descricao>Bebida tradicional feita com milho torrado, sem cafeína.</descricao>
+        <tags>
+          <tag tipo="perfil">artisanal</tag>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="temperatura">hot</tag>
+          <tag tipo="restricao">sem-cafeina</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">milho torrado</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="4" nome="Café de Milho com Canela">
+        <descricao>Versão aromática do café de milho com toque de canela.</descricao>
+        <tags>
+          <tag tipo="perfil">artisanal</tag>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="temperatura">hot</tag>
+          <tag tipo="restricao">sem-cafeina</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">milho torrado</ingrediente>
+          <ingrediente>canela</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="5" nome="Café com Leite">
+        <descricao>Combinação clássica e reconfortante de café e leite.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="temperatura">hot</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente>café</ingrediente>
+          <ingrediente>leite</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="6" nome="Cappuccino">
+        <descricao>Café expresso com leite vaporizado e espuma cremosa.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="temperatura">hot</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente>café expresso</ingrediente>
+          <ingrediente>leite vaporizado</ingrediente>
+          <ingrediente>espuma de leite</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="7" nome="Chocolate Quente">
+        <descricao>Chocolate cremoso e aquecedor, perfeito para dias frios da serra.</descricao>
+        <tags>
+          <tag tipo="sabor">sweet</tag>
+          <tag tipo="temperatura">hot</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">chocolate</ingrediente>
+          <ingrediente>leite</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="8" nome="Chá">
+        <descricao>Diversos sabores de chá para aquecer o corpo e a alma.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="temperatura">hot</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente>ervas variadas</ingrediente>
+        </ingredientes>
+        <variacoes>diversos sabores</variacoes>
+      </item>
+
+      <item id="9" nome="Pão com Manteiga">
+        <descricao>Pão fresquinho com manteiga de qualidade.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente>pão</ingrediente>
+          <ingrediente>manteiga</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="10" nome="Pão de Queijo">
+        <descricao>Quentinho, crocante por fora e macio por dentro.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="temperatura">hot</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">polvilho</ingrediente>
+          <ingrediente>queijo</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="11" nome="Café Expresso">
+        <descricao>Café concentrado e encorpado, extraído na hora.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="temperatura">hot</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">café expresso</ingrediente>
+        </ingredientes>
+      </item>
+    </categoria>
+
+    <!-- ==================== BOLOS — FATIA ==================== -->
+    <categoria id="bolos" nome="Bolos — Fatia" icone="🍰" ordem="2" descricao="Bolos caseiros e sobremesas artesanais">
+      <totalItens>9</totalItens>
+
+      <item id="12" nome="Mini Broa de Fubá">
+        <descricao>Broa tradicional de fubá, fofinha e aromática.</descricao>
+        <tags>
+          <tag tipo="sabor">sweet</tag>
+          <tag tipo="perfil">artisanal</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">fubá</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="13" nome="Broa de Milho">
+        <descricao>Broa de milho feita com receita caseira da casa.</descricao>
+        <tags>
+          <tag tipo="sabor">sweet</tag>
+          <tag tipo="perfil">artisanal</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">milho</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="14" nome="Bolo de Cenoura">
+        <descricao>Clássico bolo de cenoura, macio e saboroso.</descricao>
+        <tags>
+          <tag tipo="sabor">sweet</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">cenoura</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="15" nome="Bolo de Leite Ninho com Cobertura">
+        <descricao>Bolo macio de leite ninho com cobertura generosa.</descricao>
+        <tags>
+          <tag tipo="sabor">sweet</tag>
+          <tag tipo="perfil">signature</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">leite ninho</ingrediente>
+          <ingrediente>cobertura</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="16" nome="Bolo de Laranja">
+        <descricao>Bolo úmido de laranja com sabor cítrico natural.</descricao>
+        <tags>
+          <tag tipo="sabor">sweet</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">laranja</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="17" nome="Bolo de Amendoim com Paçoca">
+        <descricao>Combinação irresistível de amendoim e paçoca.</descricao>
+        <tags>
+          <tag tipo="sabor">sweet</tag>
+          <tag tipo="perfil">artisanal</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">amendoim</ingrediente>
+          <ingrediente>paçoca</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="18" nome="Apple Strudel de Banana" destaque="true">
+        <descricao>Strudel artesanal de banana servido com bola de sorvete.</descricao>
+        <observacoes>100g — Com bola de sorvete.</observacoes>
+        <tags>
+          <tag tipo="sabor">sweet</tag>
+          <tag tipo="perfil">signature</tag>
+          <tag tipo="perfil">artisanal</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">banana</ingrediente>
+          <ingrediente>massa folhada</ingrediente>
+          <ingrediente>sorvete</ingrediente>
+        </ingredientes>
+        <porcao>100g</porcao>
+        <acompanhamento>bola de sorvete</acompanhamento>
+      </item>
+
+      <item id="19" nome="Apple Strudel de Maçã Diet">
+        <descricao>Versão diet do tradicional strudel de maçã.</descricao>
+        <observacoes>100g</observacoes>
+        <tags>
+          <tag tipo="sabor">sweet</tag>
+          <tag tipo="perfil">artisanal</tag>
+          <tag tipo="restricao">diet</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">maçã</ingrediente>
+          <ingrediente>massa folhada diet</ingrediente>
+        </ingredientes>
+        <porcao>100g</porcao>
+      </item>
+
+      <item id="20" nome="Torta Doce">
+        <descricao>Torta doce da casa, receita especial.</descricao>
+        <tags>
+          <tag tipo="sabor">sweet</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente>massa de torta</ingrediente>
+          <ingrediente>recheio doce</ingrediente>
+        </ingredientes>
+      </item>
+    </categoria>
+
+    <!-- ==================== SANDUÍCHES ==================== -->
+    <categoria id="sanduiches" nome="Sanduíches" icone="🥪" ordem="3" descricao="Sanduíches artesanais em baguete e opções de forno">
+      <totalItens>13</totalItens>
+
+      <item id="21" nome="Lombinho de Porco Defumado" destaque="true">
+        <descricao>Baguete com mostarda de jabuticaba e queijo tipo Canastra temperado.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="perfil">signature</tag>
+          <tag tipo="perfil">artisanal</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">lombinho de porco defumado</ingrediente>
+          <ingrediente>baguete</ingrediente>
+          <ingrediente>mostarda de jabuticaba</ingrediente>
+          <ingrediente>queijo tipo Canastra temperado</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="22" nome="Abelhão" destaque="true">
+        <descricao>Baguete, queijo tipo Canastra e mel de laranja. A cara da casa!</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="sabor">sweet</tag>
+          <tag tipo="perfil">signature</tag>
+          <tag tipo="perfil">artisanal</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente>baguete</ingrediente>
+          <ingrediente principal="true">queijo tipo Canastra</ingrediente>
+          <ingrediente principal="true">mel de laranja</ingrediente>
+        </ingredientes>
+        <simbolo>🐝</simbolo>
+      </item>
+
+      <item id="23" nome="Linguiça Defumada">
+        <descricao>Baguete, molho caseiro, queijo temperado tipo Canastra.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="perfil">artisanal</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">linguiça defumada</ingrediente>
+          <ingrediente>baguete</ingrediente>
+          <ingrediente>molho caseiro</ingrediente>
+          <ingrediente>queijo temperado tipo Canastra</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="24" nome="Trita Defumada">
+        <descricao>Baguete, mostarda de alho com azeitona.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="perfil">artisanal</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">trita defumada</ingrediente>
+          <ingrediente>baguete</ingrediente>
+          <ingrediente>mostarda de alho</ingrediente>
+          <ingrediente>azeitona</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="25" nome="Italiano">
+        <descricao>Baguete, queijo tipo Canastra e pasta de tomate seco.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="perfil">artisanal</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente>baguete</ingrediente>
+          <ingrediente principal="true">queijo tipo Canastra</ingrediente>
+          <ingrediente>pasta de tomate seco</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="26" nome="Salgado de Forno">
+        <descricao>Frango com queijo, bacalhau, ricota com espinafre, palmito e queijo com presunto.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente>frango</ingrediente>
+          <ingrediente>queijo</ingrediente>
+          <ingrediente>bacalhau</ingrediente>
+          <ingrediente>ricota</ingrediente>
+          <ingrediente>espinafre</ingrediente>
+          <ingrediente>palmito</ingrediente>
+          <ingrediente>presunto</ingrediente>
+        </ingredientes>
+        <variacoes>frango com queijo, bacalhau, ricota com espinafre, palmito, queijo com presunto</variacoes>
+      </item>
+
+      <item id="27" nome="Empadinha">
+        <descricao>Empadinha crocante — bacalhau ou frango catupiry.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente>massa de empada</ingrediente>
+          <ingrediente principal="true">bacalhau</ingrediente>
+          <ingrediente principal="true">frango catupiry</ingrediente>
+        </ingredientes>
+        <variacoes>bacalhau, frango catupiry</variacoes>
+      </item>
+
+      <item id="28" nome="Empadão de Frango">
+        <descricao>Empadão generoso de frango, perfeito para dividir.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">frango</ingrediente>
+          <ingrediente>massa de empadão</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="29" nome="Hambúrguer de Forno">
+        <descricao>Hambúrguer artesanal assado no forno.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">carne bovina</ingrediente>
+          <ingrediente>pão</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="30" nome="X-Frango">
+        <descricao>Sanduíche de frango suculento.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">frango</ingrediente>
+          <ingrediente>pão</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="31" nome="Forno Misto Quente">
+        <descricao>Clássico misto quente preparado no forno.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="temperatura">hot</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente>pão</ingrediente>
+          <ingrediente>presunto</ingrediente>
+          <ingrediente>queijo</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="32" nome="Queijo Quente">
+        <descricao>Pão com queijo derretido, simples e delicioso.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="temperatura">hot</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente>pão</ingrediente>
+          <ingrediente principal="true">queijo</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="33" nome="Pão com Ovo e Queijo">
+        <descricao>Combinação simples e reconfortante.</descricao>
+        <tags>
+          <tag tipo="sabor">savory</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente>pão</ingrediente>
+          <ingrediente>ovo</ingrediente>
+          <ingrediente>queijo</ingrediente>
+        </ingredientes>
+      </item>
+    </categoria>
+
+    <!-- ==================== BEBIDAS ==================== -->
+    <categoria id="bebidas" nome="Bebidas" icone="🥤" ordem="4" descricao="Bebidas geladas, sucos e refrigerantes">
+      <totalItens>10</totalItens>
+
+      <item id="34" nome="Energético">
+        <descricao>Bebida energética para recarregar as energias.</descricao>
+        <tags>
+          <tag tipo="temperatura">cold</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente>bebida energética</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="35" nome="Suco de Valle">
+        <descricao>Sucos naturais em diversos sabores.</descricao>
+        <tags>
+          <tag tipo="temperatura">cold</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">suco natural</ingrediente>
+        </ingredientes>
+        <variacoes>diversos sabores</variacoes>
+      </item>
+
+      <item id="36" nome="Suco de Laranja">
+        <descricao>Suco de laranja natural, fresco e vitamínico.</descricao>
+        <tags>
+          <tag tipo="temperatura">cold</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">laranja</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="37" nome="Água com Gás">
+        <descricao>Água mineral com gás, gelada.</descricao>
+        <tags>
+          <tag tipo="temperatura">cold</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente>água mineral com gás</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="38" nome="Água sem Gás">
+        <descricao>Água mineral natural.</descricao>
+        <tags>
+          <tag tipo="temperatura">cold</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente>água mineral</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="39" nome="Guaraviton">
+        <descricao>Bebida energética à base de guaraná.</descricao>
+        <tags>
+          <tag tipo="temperatura">cold</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">guaraná</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="40" nome="Guaraná Lata">
+        <descricao>Refrigerante de guaraná gelado.</descricao>
+        <tags>
+          <tag tipo="sabor">sweet</tag>
+          <tag tipo="temperatura">cold</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente>guaraná</ingrediente>
+        </ingredientes>
+        <formato>lata</formato>
+      </item>
+
+      <item id="41" nome="Coca-Cola Lata">
+        <descricao>Coca-Cola em lata, gelada.</descricao>
+        <tags>
+          <tag tipo="sabor">sweet</tag>
+          <tag tipo="temperatura">cold</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente>refrigerante de cola</ingrediente>
+        </ingredientes>
+        <formato>lata</formato>
+      </item>
+
+      <item id="42" nome="Guaravita">
+        <descricao>Refrigerante natural de guaraná.</descricao>
+        <tags>
+          <tag tipo="temperatura">cold</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">guaraná natural</ingrediente>
+        </ingredientes>
+      </item>
+
+      <item id="43" nome="Mate">
+        <descricao>Mate gelado, refrescante e tradicional.</descricao>
+        <tags>
+          <tag tipo="temperatura">cold</tag>
+          <tag tipo="rapidez">quick</tag>
+        </tags>
+        <ingredientes>
+          <ingrediente principal="true">erva-mate</ingrediente>
+        </ingredientes>
+      </item>
+    </categoria>
+
+  </categorias>
+
+  <!-- ============================================================ -->
+  <!-- RESUMO ESTATÍSTICO DO CARDÁPIO                                -->
+  <!-- ============================================================ -->
+  <resumo>
+    <totalItens>43</totalItens>
+    <totalCategorias>4</totalCategorias>
+    <totalItensDestaque>4</totalItensDestaque>
+    <categorias>
+      <categoriaRef id="cafe" total="11"/>
+      <categoriaRef id="bolos" total="9"/>
+      <categoriaRef id="sanduiches" total="13"/>
+      <categoriaRef id="bebidas" total="10"/>
+    </categorias>
+    <tagsUtilizadas>
+      <tag tipo="sabor">sweet</tag>
+      <tag tipo="sabor">savory</tag>
+      <tag tipo="temperatura">hot</tag>
+      <tag tipo="temperatura">cold</tag>
+      <tag tipo="perfil">artisanal</tag>
+      <tag tipo="perfil">signature</tag>
+      <tag tipo="rapidez">quick</tag>
+      <tag tipo="restricao">sem-cafeina</tag>
+      <tag tipo="restricao">diet</tag>
+    </tagsUtilizadas>
+  </resumo>
+
+</cardapio>
