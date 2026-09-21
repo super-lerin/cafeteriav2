@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cafeteria O Abelhão - Nova Friburgo, RJ</title>
+<link href="https://cdn.jsdelivr.net/npm/fontsource-inter@4.5.0/index.css" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; color: #3d2c1e; background: #fffaf0; line-height: 1.6; }
+
+/* Header */
+header { background: linear-gradient(135deg, #fff8e1 0%, #fff3cd 100%); padding: 1rem 2rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+.nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+.logo { display: flex; align-items: center; gap: 0.75rem; font-weight: 700; font-size: 1.3rem; color: #8b5a2b; }
+.logo img { width: 45px; height: 45px; border-radius: 50%; }
+nav ul { display: flex; gap: 1.5rem; list-style: none; }
+nav a { text-decoration: none; color: #5d4037; font-weight: 500; transition: color 0.3s; }
+nav a:hover { color: #f59e0b; }
+
+/* Hero */
+.hero { background: linear-gradient(rgba(255,248,225,0.85), rgba(255,243,205,0.85)), url('https://image.qwenlm.ai/public_source/19c87cd8-5783-4b54-8b81-a30297c196f0/15e38a70b-b058-432f-821f-39bd4ad72a9f.png') center/cover; padding: 5rem 2rem; text-align: center; }
+.hero-content { max-width: 800px; margin: 0 auto; }
+.hero h1 { font-size: 3rem; color: #8b5a2b; margin-bottom: 1rem; }
+.hero p { font-size: 1.3rem; color: #5d4037; margin-bottom: 1.5rem; }
+.hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn { padding: 0.9rem 2rem; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s; display: inline-block; }
+.btn-primary { background: #f59e0b; color: white; }
+.btn-primary:hover { background: #d97706; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(245,158,11,0.4); }
+.btn-secondary { background: white; color: #8b5a2b; border: 2px solid #8b5a2b; }
+.btn-secondary:hover { background: #8b5a2b; color: white; }
+
+/* Sections */
+section { padding: 4rem 2rem; }
+.section-container { max-width: 1200px; margin: 0 auto; }
+.section-title { text-align: center; font-size: 2.5rem; color: #8b5a2b; margin-bottom: 1rem; }
+.section-subtitle { text-align: center; color: #795548; margin-bottom: 3rem; font-size: 1.1rem; }
+
+/* About */
+.about { background: white; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+.about-img img { width: 100%; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+.about-text h2 { font-size: 2.2rem; color: #8b5a2b; margin-bottom: 1.5rem; }
+.about-text p { margin-bottom: 1rem; color: #5d4037; font-size: 1.05rem; }
+.stats { display: flex; gap: 2rem; margin-top: 2rem; flex-wrap: wrap; }
+.stat { text-align: center; }
+.stat-num { font-size: 2rem; font-weight: 700; color: #f59e0b; }
+.stat-label { color: #795548; font-size: 0.9rem; }
+
+/* Products */
+.products { background: #fffaf0; }
+.products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+.product-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: transform 0.3s; position: relative; }
+.product-card:hover { transform: translateY(-8px); }
+.product-card img { width: 100%; height: 200px; object-fit: cover; }
+.product-info { padding: 1.5rem; }
+.product-info h3 { color: #8b5a2b; margin-bottom: 0.5rem; }
+.product-info p { color: #795548; margin-bottom: 1rem; font-size: 0.95rem; }
+.product-price { color: #f59e0b; font-weight: 700; }
+.badge { position: absolute; top: 1rem; right: 1rem; background: #f59e0b; color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+
+/* CARDÁPIO - Nova Seção */
+.menu-section { background: linear-gradient(135deg, #fff8e1 0%, #fff3cd 100%); }
+.menu-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+.menu-category-card { background: white; border-radius: 20px; padding: 2rem; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: all 0.3s; cursor: pointer; border: 2px solid transparent; }
+.menu-category-card:hover { transform: translateY(-5px); border-color: #f59e0b; box-shadow: 0 8px 25px rgba(245,158,11,0.2); }
+.menu-category-icon { font-size: 3rem; margin-bottom: 1rem; }
+.menu-category-card h3 { color: #8b5a2b; font-size: 1.4rem; margin-bottom: 0.75rem; }
+.menu-category-card .item-count { color: #f59e0b; font-weight: 600; font-size: 0.9rem; margin-bottom: 1rem; }
+.menu-preview-list { list-style: none; text-align: left; }
+.menu-preview-list li { padding: 0.5rem 0; border-bottom: 1px dashed #f5e6c8; color: #5d4037; font-size: 0.95rem; }
+.menu-preview-list li:last-child { border-bottom: none; }
+.menu-preview-list li::before { content: "•"; color: #f59e0b; font-weight: bold; margin-right: 0.5rem; }
+.menu-cta { text-align: center; margin-top: 2rem; }
+.btn-menu { background: #8b5a2b; color: white; padding: 1.1rem 2.5rem; font-size: 1.1rem; border: none; cursor: pointer; border-radius: 50px; font-weight: 600; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem; }
+.btn-menu:hover { background: #6d4423; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139,90,43,0.4); }
+
+/* Modal Cardápio */
+.modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1000; justify-content: center; align-items: center; padding: 1rem; animation: fadeIn 0.3s; }
+.modal-overlay.active { display: flex; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal { background: #fffaf0; border-radius: 20px; max-width: 900px; width: 100%; max-height: 90vh; overflow: hidden; display: flex; flex-direction: column; animation: slideUp 0.4s; }
+@keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.modal-header { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+.modal-header h2 { font-size: 1.8rem; }
+.modal-close { background: rgba(255,255,255,0.2); border: none; color: white; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 1.3rem; transition: background 0.3s; }
+.modal-close:hover { background: rgba(255,255,255,0.35); }
+.modal-body { overflow-y: auto; padding: 2rem; flex: 1; }
+.menu-category-full { margin-bottom: 2.5rem; }
+.menu-category-full h3 { color: #8b5a2b; font-size: 1.5rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #f59e0b; display: flex; align-items: center; gap: 0.5rem; }
+.menu-item { padding: 0.9rem 0; border-bottom: 1px dashed #e8d5a8; display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
+.menu-item:last-child { border-bottom: none; }
+.menu-item-name { font-weight: 600; color: #5d4037; flex: 1; }
+.menu-item-desc { font-size: 0.9rem; color: #795548; font-style: italic; margin-top: 0.25rem; }
+
+/* Hours */
+.hours { background: white; }
+.hours-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 700px; margin: 0 auto; }
+.hour-card { background: linear-gradient(135deg, #fff8e1, #fff3cd); padding: 2rem; border-radius: 20px; text-align: center; }
+.hour-icon { font-size: 3rem; margin-bottom: 1rem; }
+.hour-card h3 { color: #8b5a2b; margin-bottom: 0.5rem; }
+.hour-card p { color: #5d4037; font-size: 1.1rem; }
+.status { text-align: center; margin-top: 2rem; padding: 1rem; background: #d4edda; color: #155724; border-radius: 10px; max-width: 700px; margin-left: auto; margin-right: auto; }
+.tip { text-align: center; margin-top: 1.5rem; color: #795548; font-style: italic; }
+
+/* Gallery */
+.gallery { background: #fffaf0; }
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+.gallery-grid img { width: 100%; height: 200px; object-fit: cover; border-radius: 15px; transition: transform 0.3s; cursor: pointer; }
+.gallery-grid img:hover { transform: scale(1.05); }
+
+/* Location */
+.location { background: white; }
+.location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+.location-info h3 { color: #8b5a2b; margin: 1rem 0 0.5rem; font-size: 1.2rem; }
+.location-info p { color: #5d4037; }
+.map-placeholder { background: linear-gradient(135deg, #f59e0b, #d97706); border-radius: 20px; padding: 3rem; text-align: center; color: white; cursor: pointer; transition: transform 0.3s; text-decoration: none; display: block; }
+.map-placeholder:hover { transform: scale(1.02); }
+.map-placeholder .map-icon { font-size: 4rem; margin-bottom: 1rem; }
+
+/* Reviews */
+.reviews { background: #fffaf0; }
+.reviews-header { text-align: center; margin-bottom: 2rem; }
+.reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+.review-card { background: white; padding: 2rem; border-radius: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+.review-stars { color: #f59e0b; margin-bottom: 1rem; font-size: 1.2rem; }
+.review-text { color: #5d4037; font-style: italic; margin-bottom: 1rem; }
+.review-author { display: flex; align-items: center; gap: 0.75rem; }
+.review-avatar { width: 40px; height: 40px; border-radius: 50%; background: #f59e0b; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+.review-name { font-weight: 600; color: #8b5a2b; }
+.review-source { font-size: 0.85rem; color: #795548; }
+
+/* Instagram */
+.instagram { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; text-align: center; }
+.instagram h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+.instagram p { font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.95; }
+.instagram-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+/* Footer */
+footer { background: #3d2c1e; color: #fff8e1; padding: 3rem 2rem 1.5rem; }
+.footer-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+.footer-col h4 { color: #f59e0b; margin-bottom: 1rem; }
+.footer-col a { color: #fff8e1; text-decoration: none; display: block; margin-bottom: 0.5rem; opacity: 0.8; transition: opacity 0.3s; }
+.footer-col a:hover { opacity: 1; color: #f59e0b; }
+.footer-bottom { text-align: center; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); color: #fff8e1; opacity: 0.7; font-size: 0.9rem; }
+.footer-rating { text-align: center; margin-bottom: 1rem; color: #f59e0b; }
+
+/* Floating button */
+.floating-rating { position: fixed; bottom: 20px; right: 20px; background: white; padding: 0.75rem 1.25rem; border-radius: 50px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 0.5rem; z-index: 50; color: #f59e0b; font-weight: 600; text-decoration: none; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  nav ul { display: none; }
+  .hero h1 { font-size: 2rem; }
+  .about-grid, .location-grid { grid-template-columns: 1fr; }
+  .hours-grid { grid-template-columns: 1fr; }
+  .section-title { font-size: 2rem; }
+  .modal-header h2 { font-size: 1.3rem; }
+  .modal-body { padding: 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-container">
+    <div class="logo">
+      <img src="https://image.qwenlm.ai/public_source/19c87cd8-5783-4b54-8b81-a30297c196f0/15e38a70b-b058-432f-821f-39bd4ad72a9f.png" alt="O Abelhão">
+      O Abelhão
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#produtos">Produtos</a></li>
+        <li><a href="#cardapio">Cardápio</a></li>
+        <li><a href="#galeria">Galeria</a></li>
+        <li><a href="#localizacao">Localização</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" id="inicio">
+  <div class="hero-content">
+    <h1>Cafeteria O Abelhão</h1>
+    <p>Sabor que encanta, tradição que acolhe 🐝</p>
+    <p style="font-size: 1rem; color: #795548;">📍 RJ-116, Nova Friburgo - RJ · 💰 R$ 20 a R$ 40</p>
+    <div class="hero-buttons">
+      <a href="#cardapio" class="btn btn-primary">📋 Ver Cardápio</a>
+      <a href="#produtos" class="btn btn-secondary">Ver Produtos</a>
+      <a href="https://www.google.com/maps/place/Cafeteria+O+abelhao/@-22.3699374,-42.5414703,17z" class="btn btn-secondary">🗺️ Como Chegar</a>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="sobre">
+  <div class="section-container">
+    <div class="about-grid">
+      <div class="about-img">
+        <img src="https://image.qwenlm.ai/public_source/19c87cd8-5783-4b54-8b81-a30297c196f0/197d41711-8fc0-407c-9724-3723f3ea28cf.png" alt="Cafeteria O Abelhão">
+      </div>
+      <div class="about-text">
+        <h2>Nossa História</h2>
+        <p><strong>Bem-vindos ao nosso cantinho! 🐝</strong></p>
+        <p>A Cafeteria O Abelhão é um charmoso café à beira da estrada, localizado na RJ-116 em Nova Friburgo, na região serrana do Rio de Janeiro. Um lugar perfeito para ciclistas, viajantes e amantes de boa comida pararem e recarregarem as energias.</p>
+        <p>Oferecemos degustações de geleias artesanais, chutneys, queijos, mostardas e uma variedade de bolos caseiros feitos com muito carinho. Nosso ambiente acolhedor e nossos produtos de qualidade fazem de cada visita uma experiência única.</p>
+        <div class="stats">
+          <div class="stat"><div class="stat-num">4.5★</div><div class="stat-label">Google</div></div>
+          <div class="stat"><div class="stat-num">248</div><div class="stat-label">Avaliações</div></div>
+          <div class="stat"><div class="stat-num">R$20-40</div><div class="stat-label">Preço médio</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--section class="products" id="produtos">
+  <div class="section-container">
+    <h2 class="section-title">Nossos Produtos</h2>
+    <p class="section-subtitle">Delícias artesanais feitas com amor e dedicação</p>
+    <div class="products-grid">
+      <div class="product-card">
+        <span class="badge">Mais Vendido</span>
+        <img src="https://image.qwenlm.ai/public_source/19c87cd8-5783-4b54-8b81-a30297c196f0/1b5747743-849c-4e2c-a048-54c4e8f75a9b.png" alt="Bolos Caseiros">
+        <div class="product-info">
+          <h3>Bolos Caseiros</h3>
+          <p>Bolos fresquinhos feitos diariamente: chocolate, red velvet, cenoura e muito mais.</p>
+          <span class="product-price">A partir de R$ 20 🍰</span>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="https://image.qwenlm.ai/public_source/19c87cd8-5783-4b54-8b81-a30297c196f0/132d02791-4d72-42eb-8554-eba6c824ee38.png" alt="Geleias">
+        <div class="product-info">
+          <h3>Geleias & Conservas</h3>
+          <p>Geleias artesanais, chutneys e conservas feitas com frutas frescas da região serrana.</p>
+          <span class="product-price">A partir de R$ 15 🍯</span>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="https://image.qwenlm.ai/public_source/19c87cd8-5783-4b54-8b81-a30297c196f0/1457cdee2-1237-4534-9c3e-ec2e3fc4bd1c.png" alt="Cafés">
+        <div class="product-info">
+          <h3>Cafés & Bebidas</h3>
+          <p>Cafés especiais, chás e bebidas quentes para aquecer seu dia na serra.</p>
+          <span class="product-price">A partir de R$ 8 ☕</span>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="https://image.qwenlm.ai/public_source/19c87cd8-5783-4b54-8b81-a30297c196f0/1d7e7973a-4c74-483d-80d0-84112d36691f.png" alt="Delicatessen">
+        <div class="product-info">
+          <h3>Delicatessen</h3>
+          <p>Queijos, embutidos, pães artesanais e produtos selecionados da região.</p>
+          <span class="product-price">A partir de R$ 25 🧀</span>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="https://image.qwenlm.ai/public_source/19c87cd8-5783-4b54-8b81-a30297c196f0/132d02791-4d72-42eb-8554-eba6c824ee38.png" alt="Mostardas">
+        <div class="product-info">
+          <h3>Mostardas Artesanais</h3>
+          <p>Mostardas especiais feitas na casa, perfeitas para acompanhar seus pratos favoritos.</p>
+          <span class="product-price">A partir de R$ 12 🌶️</span>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="https://image.qwenlm.ai/public_source/19c87cd8-5783-4b54-8b81-a30297c196f0/1b5747743-849c-4e2c-a048-54c4e8f75a9b.png" alt="Lanches">
+        <div class="product-info">
+          <h3>Lanches & Salgados</h3>
+          <p>Lanches deliciosos e salgados fresquinhos para matar sua fome na estrada.</p>
+          <span class="product-price">A partir de R$ 18 🥪</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section-->
+
+<!-- NOVA SEÇÃO CARDÁPIO -->
+<section class="menu-section" id="cardapio">
+  <div class="section-container">
+    <h2 class="section-title">📋 Nosso Cardápio</h2>
+    <p class="section-subtitle">Sabores artesanais para todos os gostos — uma prévia das nossas delícias</p>
+    
+    <div class="menu-categories">
+      <!-- CAFÉ -->
+      <div class="menu-category-card" onclick="openMenuModal()">
+        <div class="menu-category-icon">☕</div>
+        <h3>Café</h3>
+        <div class="item-count">9 opções</div>
+        <ul class="menu-preview-list">
+          <li>Café da Roça Ritual</li>
+          <li>Cafezinho Tradicional</li>
+          <li>Café de Milho</li>
+          <li>Cappuccino</li>
+        </ul>
+      </div>
+
+      <!-- BOLOS -->
+      <div class="menu-category-card" onclick="openMenuModal()">
+        <div class="menu-category-icon">🍰</div>
+        <h3>Bolos — Fatia</h3>
+        <div class="item-count">9 opções</div>
+        <ul class="menu-preview-list">
+          <li>Mini Broa de Fubá</li>
+          <li>Bolo de Cenoura</li>
+          <li>Bolo de Leite Ninho</li>
+          <li>Apple Strudel</li>
+        </ul>
+      </div>
+
+      <!-- SANDUÍCHES -->
+      <div class="menu-category-card" onclick="openMenuModal()">
+        <div class="menu-category-icon">🥪</div>
+        <h3>Sanduíches</h3>
+        <div class="item-count">10 opções</div>
+        <ul class="menu-preview-list">
+          <li>Lombinho Defumado</li>
+          <li>Abelhão (mel de laranja)</li>
+          <li>Linguiça Defumada</li>
+          <li>Italiano</li>
+        </ul>
+      </div>
+
+      <!-- BEBIDAS -->
+      <div class="menu-category-card" onclick="openMenuModal()">
+        <div class="menu-category-icon">🥤</div>
+        <h3>Bebidas</h3>
+        <div class="item-count">11 opções</div>
+        <ul class="menu-preview-list">
+          <li>Suco de Laranja</li>
+          <li>Suco Del Valle</li>
+          <li>Guaraná / Coca-Cola</li>
+          <li>Guaravita / Mate</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="menu-cta">
+      <button class="btn-menu" onclick="openMenuModal()">
+        📖 Ver Cardápio Completo
+      </button>
+      <p style="margin-top: 1rem; color: #795548; font-size: 0.95rem;">✨ Clique para ver todos os itens, descrições e detalhes</p>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL CARDÁPIO COMPLETO -->
+<div class="modal-overlay" id="menuModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>📋 Cardápio Completo</h2>
+      <button class="modal-close" onclick="closeMenuModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      
+      <div class="menu-category-full">
+        <h3>☕ Café</h3>
+        <div class="menu-item">
+          <div style="flex:1">
+            <div class="menu-item-name">Café da Roça Ritual</div>
+            <div class="menu-item-desc">Linguiça, queijo, broa e licor.</div>
+          </div>
+        </div>
+        <div class="menu-item"><div class="menu-item-name">Cafezinho Tradicional</div></div>
+        <div class="menu-item"><div class="menu-item-name">Café de Milho</div></div>
+        <div class="menu-item"><div class="menu-item-name">Café de Milho com Canela</div></div>
+        <div class="menu-item"><div class="menu-item-name">Café com Leite</div></div>
+        <div class="menu-item"><div class="menu-item-name">Cappuccino</div></div>
+        <div class="menu-item"><div class="menu-item-name">Chocolate Quente</div></div>
+        <div class="menu-item"><div class="menu-item-name">Chá</div></div>
+        <div class="menu-item"><div class="menu-item-name">Pão com Manteiga</div></div>
+        <div class="menu-item"><div class="menu-item-name">Pão de Queijo</div></div>
+        <div class="menu-item"><div class="menu-item-name">Café Expresso</div></div>
+      </div>
+
+      <div class="menu-category-full">
+        <h3>🍰 Bolos — Fatia</h3>
+        <div class="menu-item"><div class="menu-item-name">Mini Broa de Fubá</div></div>
+        <div class="menu-item"><div class="menu-item-name">Broa de Milho</div></div>
+        <div class="menu-item"><div class="menu-item-name">Bolo de Cenoura</div></div>
+        <div class="menu-item"><div class="menu-item-name">Bolo de Leite Ninho com Cobertura</div></div>
+        <div class="menu-item"><div class="menu-item-name">Bolo de Laranja</div></div>
+        <div class="menu-item"><div class="menu-item-name">Bolo de Amendoim com Paçoca</div></div>
+        <div class="menu-item">
+          <div style="flex:1">
+            <div class="menu-item-name">Apple Strudel de Banana</div>
+            <div class="menu-item-desc">100g — Com bola de sorvete.</div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div style="flex:1">
+            <div class="menu-item-name">Apple Strudel de Maçã Diet</div>
+            <div class="menu-item-desc">100g</div>
+          </div>
+        </div>
+        <div class="menu-item"><div class="menu-item-name">Torta Doce</div></div>
+      </div>
+
+      <div class="menu-category-full">
+        <h3>🥪 Sanduíches</h3>
+        <div class="menu-item">
+          <div style="flex:1">
+            <div class="menu-item-name">Lombinho de Porco Defumado</div>
+            <div class="menu-item-desc">Baguete com mostarda de jabuticaba e queijo tipo Canastra temperado.</div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div style="flex:1">
+            <div class="menu-item-name">Abelhão 🐝</div>
+            <div class="menu-item-desc">Baguete, queijo tipo Canastra e mel de laranja.</div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div style="flex:1">
+            <div class="menu-item-name">Linguiça Defumada</div>
+            <div class="menu-item-desc">Baguete, molho caseiro, queijo temperado tipo Canastra.</div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div style="flex:1">
+            <div class="menu-item-name">Truta Defumada</div>
+            <div class="menu-item-desc">Baguete, mostarda de alho com azeitona.</div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div style="flex:1">
+            <div class="menu-item-name">Italiano</div>
+            <div class="menu-item-desc">Baguete, queijo tipo Canastra e pasta de tomate seco.</div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div style="flex:1">
+            <div class="menu-item-name">Salgado de Forno</div>
+            <div class="menu-item-desc">Frango com queijo, bacalhau, ricota com espinafre, palmito e queijo com presunto.</div>
+          </div>
+        </div>
+        <div class="menu-item">
+          <div style="flex:1">
+            <div class="menu-item-name">Empadinha</div>
+            <div class="menu-item-desc">Bacalhau ou frango catupiry.</div>
+          </div>
+        </div>
+        <div class="menu-item"><div class="menu-item-name">Empadão de Frango</div></div>
+        <div class="menu-item"><div class="menu-item-name">Hambúrguer de Forno</div></div>
+        <div class="menu-item"><div class="menu-item-name">X-Frango</div></div>
+        <div class="menu-item"><div class="menu-item-name">Forno Misto</div></div>
+        <div class="menu-item"><div class="menu-item-name">Queijo Quente</div></div>
+        <div class="menu-item"><div class="menu-item-name">Pão com Ovo e Queijo</div></div>
+      </div>
+
+      <div class="menu-category-full">
+        <h3>🥤 Bebidas</h3>
+        <div class="menu-item"><div class="menu-item-name">Energético</div></div>
+        <div class="menu-item">
+          <div style="flex:1">
+            <div class="menu-item-name">Suco Del Valle</div>
+            <div class="menu-item-desc">Diversos sabores</div>
+          </div>
+        </div>
+        <div class="menu-item"><div class="menu-item-name">Suco de Laranja</div></div>
+        <div class="menu-item"><div class="menu-item-name">Água com Gás</div></div>
+        <div class="menu-item"><div class="menu-item-name">Água sem Gás</div></div>
+        <div class="menu-item"><div class="menu-item-name">Guaraviton</div></div>
+        <div class="menu-item"><div class="menu-item-name">Guaraná Lata</div></div>
+        <div class="menu-item"><div class="menu-item-name">Coca-Cola Lata</div></div>
+        <div class="menu-item"><div class="menu-item-name">Guaravita</div></div>
+        <div class="menu-item"><div class="menu-item-name">Mate</div></div>
+      </div>
+
+      <div style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, #fff8e1, #fff3cd); border-radius: 15px; margin-top: 1rem;">
+        <p style="color: #8b5a2b; font-weight: 600; margin-bottom: 0.5rem;">🐝 Venha nos visitar!</p>
+        <p style="color: #5d4037; font-size: 0.95rem;">RJ-116, Nova Friburgo - RJ · Seg-Sex: 8h-17h · Sáb-Dom: até 18h</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<section class="hours">
+  <div class="section-container">
+    <h2 class="section-title">Horário de Funcionamento</h2>
+    <div class="hours-grid">
+      <div class="hour-card">
+        <div class="hour-icon">🕗</div>
+        <h3>Segunda a Sexta</h3>
+        <p>8h às 17h</p>
+      </div>
+      <div class="hour-card">
+        <div class="hour-icon">🕕</div>
+        <h3>Sábado e Domingo</h3>
+        <p>Até 18h</p>
+      </div>
+    </div>
+    <div class="status">✅ Aberto agora · Fecha às 18:00</div>
+    <p class="tip">💡 Dica: Ciclistas são sempre bem-vindos! Pare para uma degustação.</p>
+  </div>
+</section>
+
+<section class="gallery" id="galeria">
+  <div class="section-container">
+    <h2 class="section-title">Galeria</h2>
+    <p class="section-subtitle">Conheça nosso espaço e nossas delícias</p>
+    <div class="gallery-grid">
+      <img src="https://image.qwenlm.ai/public_source/19c87cd8-5783-4b54-8b81-a30297c196f0/197d41711-8fc0-407c-9724-3723f3ea28cf.png" alt="Galeria 1">
+      <img src="https://image.qwenlm.ai/public_source/19c87cd8-5783-4b54-8b81-a30297c196f0/1d7e7973a-4c74-483d-80d0-84112d36691f.png" alt="Galeria 2">
+      <img src="https://image.qwenlm.ai/public_source/19c87cd8-5783-4b54-8b81-a30297c196f0/1b5747743-849c-4e2c-a048-54c4e8f75a9b.png" alt="Galeria 3">
+      <img src="https://image.qwenlm.ai/public_source/19c87cd8-5783-4b54-8b81-a30297c196f0/132d02791-4d72-42eb-8554-eba6c824ee38.png" alt="Galeria 4">
+      <img src="https://image.qwenlm.ai/public_source/19c87cd8-5783-4b54-8b81-a30297c196f0/1457cdee2-1237-4534-9c3e-ec2e3fc4bd1c.png" alt="Galeria 5">
+    </div>
+  </div>
+</section>
+
+<!-- Subtítulo da seção de localização -->
+<section class="location" id="localizacao">
+  <div class="section-container">
+    <h2 class="section-title">Como Chegar</h2>
+    <p class="section-subtitle">Encontre-nos na estrada RJ-116, Nova Friburgo</p>
+    <div class="location-grid">
+      <div class="location-info">
+        <h3>📍 Endereço</h3>
+        <p>RJ-116, Nova Friburgo - RJ</p>
+        <p>Coordenadas: -22.3699374, -42.5414703</p>
+        <h3>🕐 Horário</h3>
+        <p>Seg-Sex: Das 8h às 17h</p>
+        <p>Sáb-Dom: Até às 18h</p>
+        <h3>💰 Faixa de Preço</h3>
+        <p>R$ 20 a R$ 40 por pessoa</p>
+        <h3>📷 Instagram</h3>
+        <p><a href="https://www.instagram.com/cafeteria_o_abelhao/" style="color:#f59e0b;">@cafeteria_o_abelhao</a></p>
+      </div>
+      <a href="https://www.google.com/maps/place/Cafeteria+O+abelhao/@-22.3699374,-42.5414703,17z" target="_blank" class="map-placeholder">
+        <div class="map-icon">🗺️</div>
+        <h3 style="font-size:1.5rem; margin-bottom:0.5rem;">Abrir no Google Maps</h3>
+        <p>Clique no mapa para abrir no Google Maps</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Item corrigido dentro do Modal de Cardápio -->
+<div class="menu-item">
+  <div style="flex:1">
+    <div class="menu-item-name">Empadinha</div>
+    <div class="menu-item-desc">Bacalhau ou frango com Catupiry.</div>
+  </div>
+</div>
+
+<section class="reviews">
+  <div class="section-container">
+    <h2 class="section-title">O que dizem sobre nós</h2>
+    <div class="reviews-header">
+      <p style="color:#f59e0b; font-size:1.2rem;">★★★★★ 4.5 de 5 · 248 avaliações no Google</p>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Este é um café muito charmoso à beira da estrada, onde ciclistas também param. Eles ofereceram degustações de geleias, chutneys, queijos e..."</p>
+        <div class="review-author">
+          <div class="review-avatar">C</div>
+          <div>
+            <div class="review-name">Claudiane Ouellet-Plamondon</div>
+            <div class="review-source">Google Reviews</div>
+          </div>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">"Excelente lugar para almoçar. Ambiente acolhedor, produtos de qualidade e atendimento maravilhoso. Vale muito a pena a parada!"</p>
+        <div class="review-author">
+          <div class="review-avatar">V</div>
+          <div>
+            <div class="review-name">Visitante</div>
+            <div class="review-source">Google Reviews</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="instagram">
+  <div class="section-container">
+    <h2>📷 Siga-nos no Instagram</h2>
+    <p>@cafeteria_o_abelhao</p>
+    <p style="margin-bottom:2rem;">Acompanhe nossas novidades, promoções e fotos do dia a dia</p>
+    <div class="instagram-buttons">
+      <a href="https://www.instagram.com/cafeteria_o_abelhao/" class="btn" style="background:white; color:#8b5a2b;">Seguir no Instagram</a>
+      <a href="https://www.google.com/maps/place/Cafeteria+O+abelhao/@-22.3699374,-42.5414703,17z" class="btn" style="background:#8b5a2b; color:white;">Ver no Google Maps</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-container">
+    <div class="footer-col">
+      <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
+        <img src="https://image.qwenlm.ai/public_source/19c87cd8-5783-4b54-8b81-a30297c196f0/15e38a70b-b058-432f-821f-39bd4ad72a9f.png" alt="Logo" style="width:50px; height:50px; border-radius:50%;">
+        <div>
+          <h4 style="margin:0;">O Abelhão</h4>
+          <small>Cafeteria & Delicatessen</small>
+        </div>
+      </div>
+      <p style="opacity:0.8; font-size:0.9rem;">Cafeteria e Delicatessen artesanal na região serrana do Rio de Janeiro.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Links Rápidos</h4>
+      <a href="#inicio">Início</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#produtos">Produtos</a>
+      <a href="#cardapio">Cardápio</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#localizacao">Localização</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <p style="opacity:0.8; font-size:0.9rem;">RJ-116, Nova Friburgo - RJ</p>
+      <p style="opacity:0.8; font-size:0.9rem;">Seg-Sex: 8h-17h · Sáb-Dom: até 18h</p>
+      <a href="https://www.instagram.com/cafeteria_o_abelhao/">@cafeteria_o_abelhao</a>
+      <a href="https://www.google.com/maps/place/Cafeteria+O+abelhao/@-22.3699374,-42.5414703,17z">Google Maps</a>
+    </div>
+  </div>
+  <div class="footer-rating">★★★★★ 4.5 · 248 avaliações no Google</div>
+  <div class="footer-bottom">
+    © 2026 Cafeteria O Abelhão. Todos os direitos reservados.<br>
+    🐝 Feito com amor e mel em Nova Friburgo, RJ
+  </div>
+</footer>
+
+<a href="https://www.google.com/maps/place/Cafeteria+O+abelhao/@-22.3699374,-42.5414703,17z" class="floating-rating" target="_blank">★★★★★ 4.5</a>
+
+<script>
+function openMenuModal() {
+  document.getElementById('menuModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeMenuModal() {
+  document.getElementById('menuModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.getElementById('menuModal').addEventListener('click', function(e) {
+  if (e.target === this) closeMenuModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeMenuModal();
+});
+</script>
+
+</body>
+</html>
